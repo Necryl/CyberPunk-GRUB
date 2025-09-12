@@ -2,7 +2,7 @@
 
 # general settings
 title-text: ""
-desktop-image: "background.png"
+desktop-image: "background.jpg"
 desktop-color: "#000000"
 terminal-font: "Terminus (TTF) Regular 16"
 terminal-left: "0"
