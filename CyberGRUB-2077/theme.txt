@@ -2,7 +2,7 @@
 
 # general settings
 title-text: ""
-desktop-image: "background.jpg"
+desktop-image: "background.png"
 desktop-color: "#000000"
 terminal-font: "Terminus (TTF) Regular 16"
 terminal-left: "0"
@@ -38,7 +38,7 @@ terminal-border: "0"
 }
 
 + image {
-	file = "label.jpg"
+	file = "label.png"
 	top = 8
 	left = 8
 }
@@ -102,7 +102,7 @@ terminal-border: "0"
   fg_color = "#ffffff"
   bg_color = "#ffffff"
   border_color = "#f75d54"
-  highlight_style = "progress_*.jpg"
+  highlight_style = "progress_*.png"
 }
 
 + label {
