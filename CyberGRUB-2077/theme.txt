@@ -17,7 +17,7 @@ terminal-border: "0"
 	top = 8
 	width = 100%
 	align = "center"
-	color = "#E2E2E2"
+	color = "#57B2FF"
 	text = "GNU GRAND UNIFIED BOOTLOADER VER. 2.2"
 }
 
@@ -77,9 +77,9 @@ terminal-border: "0"
     top = 30%
     height = 40%	
     item_font = "Rajdhani Regular 24"
-    item_color = "#63D0DF"
+    item_color = "#57B2FF"
     selected_item_font = "Rajdhani Regular 24"
-    selected_item_color = "#FFBF00"
+    selected_item_color = "#E3BD0B"
     icon_width = 24
     icon_height = 24
     item_height = 35
