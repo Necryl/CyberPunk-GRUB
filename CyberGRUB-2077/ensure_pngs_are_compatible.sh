@@ -13,40 +13,19 @@ while IFS= read -r file; do
     found_png=true
     echo "Processing file: $file"
 
-    info=$(magick identify -format '%[type] %[bit-depth]' "$file")
-    image_type=$(echo "$info" | awk '{print $1}')
-    bit_depth=$(echo "$info" | awk '{print $2}')
+    # Create a temporary file for the conversion
+    temp_file=$(mktemp --suffix=.png)
 
-    needs_conversion=false
-    
-    if [ "$image_type" == "Palette" ]; then
-        echo "  > Indexed PNG found. Will convert to TrueColor."
-        needs_conversion=true
+    # Unconditionally convert the PNG to a GRUB-compatible format:
+    # - png:color-type=6: Forces RGBA (TrueColor with Alpha) to ensure transparency is handled.
+    # - png:filter=0:     Disables all PNG filters for maximum compatibility with simple decoders.
+    # - depth 8:          Sets the bit depth to 8 bits per channel.
+    if magick "$file" -define png:color-type=6 -define png:filter=0 -depth 8 "$temp_file"; then
+        echo "  > Conversion successful. Replacing original file."
+        mv "$temp_file" "$file"
     else
-        echo "  > Image is already in TrueColor format. OK."
-    fi
-
-    if [ "$bit_depth" != "8" ] && [ "$bit_depth" != "16" ]; then
-        echo "  > Bit depth is $bit_depth. Will convert to 8-bit."
-        needs_conversion=true
-    else
-        echo "  > Bit depth is $bit_depth. OK."
-    fi
-
-    if [ "$needs_conversion" == "true" ]; then
-        echo "  > Converting image..."
-        temp_file=$(mktemp --suffix=.png)
-        
-        # Define the PNG color type to force TrueColor (6 = RGBA) and set depth to 8
-        if magick "$file" -define png:color-type=6 -depth 8 "$temp_file"; then
-            echo "  > Conversion successful. Replacing original file."
-            mv "$temp_file" "$file"
-        else
-            echo "  > Conversion failed. Original file is untouched."
-            rm -f "$temp_file"
-        fi
-    else
-        echo "  > No conversion needed."
+        echo "  > Conversion failed for '$file'. Original file is untouched."
+        rm -f "$temp_file"
     fi
     echo
 
