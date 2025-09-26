@@ -48,7 +48,7 @@ terminal-border: "0"
 	left = 8
 	top = 48
 	width = 100%
-	color = "#8E4DDB"
+	color = "#F07508"
 	text = "[ >> ] SELECT OPERATING SYSTEM"
 }
 
